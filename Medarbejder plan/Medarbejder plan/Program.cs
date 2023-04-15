@@ -3,73 +3,28 @@
 namespace Medarbejder_plan
 {
     public class Program
-    {
-               
-        static void ListMetoden(List<Ansat> ansats)
-        {
-
-            ansats.Add(new FuldtidsAnsat() { FirstName = "Mini", LastName = "Jens", MedarbejderID = "001" });
-            ansats.Add(new DeltidsAnsat() { FirstName = "Adam", LastName = "Eriksen", MedarbejderID = "002" });
-            ansats.Add(new LøstAnsat() { FirstName = "Mogens", LastName = "Mortensen", MedarbejderID = "003" });
-            //ansats.Add(new LøstAnsat("Basem", "Abu", "004"));                     
-
-        }
+    {                
         
-        static Ansat TilføjMedarbejder()
-        {
-            Console.WriteLine("Indtast fornavn: ");
-            var name = Console.ReadLine();
-            Console.WriteLine("Indtast efternavn: ");
-            var lastName = Console.ReadLine();
-            Console.WriteLine("Indtast medarbejderID: ");
-            var id = Console.ReadLine();
-
-            Console.WriteLine("Indtast ansættelsestype: D: Deltid, F: Fultid, L: Løst ");
-            var type = Console.ReadLine().ToUpper();
-            switch (type)
-
-            {
-                case "D": return new DeltidsAnsat() { FirstName = name, LastName = lastName, MedarbejderID = id };
-                case "F": return new FuldtidsAnsat() { FirstName = name, LastName = lastName, MedarbejderID = id };
-                case "L": return new LøstAnsat() { FirstName = name, LastName = lastName, MedarbejderID = id };
-                default:
-                    break;
-            }
-            return null;
-        }
-
-        static string Menu()
-        {
-            Console.WriteLine("---------------------------------");
-            Console.WriteLine("Velkommen til Medarbejder menuen:");
-            Console.WriteLine("---------------------------------");
-            Console.WriteLine("Vælg venligst en af følgende valgmuligheder:");
-            Console.WriteLine("A: Tilføj ny medarbejder");
-            Console.WriteLine("D: Slet medarbejder");
-            Console.WriteLine("V: Vis listen af medarbejdere");
-            Console.WriteLine("Q: Log ud af programmet");
-            var option =  Console.ReadLine();
-            
-            return option;
-        }
         static void Main(string[] args)
         {
-            
+            Controller controller = new Controller();       //Den ny Controller klasse bliver instantieret, så Main nu refererer til dens objekter
+
             List<Ansat> mineAnsatte = new List<Ansat>();
 
-            ListMetoden(mineAnsatte);
-            do
+            controller.MedarbejderOversigt(mineAnsatte);
+
+            while (true)
             {
-                var option = Menu().ToUpper();
- 
-                if (option == "Q")
+                var option = controller.Menu();
+
+                if (option == 6)
                     break;
                 switch (option)
                 {
-                    case "A":
-                        mineAnsatte.Add(TilføjMedarbejder());
+                    case 2:
+                        mineAnsatte.Add(controller.OpretMedarbejder());
                         break;
-                    case "V":
+                    case 1:
                         foreach (Ansat a in mineAnsatte)
                         {
                             a.MedarbejderLogin();
@@ -79,7 +34,19 @@ namespace Medarbejder_plan
                     default:
                         break;
                 }
-            } while (true);
+                Console.WriteLine("\n");
+                Console.WriteLine("Indtast 'ja' hvis du vil tilbage til oversigten");
+
+                string answer = Console.ReadLine().ToLower();
+
+                if (answer != "ja")
+                {
+                    break; // exit the loop
+                }
+                Console.Clear();
+
+            } /*while (true);*/
+            
 
 
 

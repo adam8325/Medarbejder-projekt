@@ -13,6 +13,7 @@ namespace Medarbejder_plan
         public string FirstName;
         public string LastName;
 
+       
         public string MedarbejderID;
 
         public virtual void MedarbejderLogin()   //Virtual keyword bruges så derived classes kan override denne metode
