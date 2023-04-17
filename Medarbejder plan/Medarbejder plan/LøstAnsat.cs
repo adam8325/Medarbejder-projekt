@@ -18,7 +18,7 @@ namespace Medarbejder_plan
         public override void MedarbejderLogin()      //Metoden overrides så den kan bruges af subklasserne      
         {
             
-            Console.WriteLine($"Navn: {FirstName}  {LastName} - ID: {MedarbejderID} - Type: Løstansat");
+            Console.WriteLine($"Navn: {FirstName} {LastName} - ID: {MedarbejderID} - Type: Løstansat");
         }
     }
 }
